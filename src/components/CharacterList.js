@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+
+import SearchForm from './SearchForm';
 import CharacterCard from './CharacterCard';
 
 export default function CharacterList() {
@@ -25,6 +27,7 @@ export default function CharacterList() {
   return (
     <section className="character-list">
       <Link to='/'>Home</Link>
+      <SearchForm />
       {people.map((person, index) => (
         <CharacterCard 
           key={index}

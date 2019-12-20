@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import axios from 'axios';
 
 import WelcomePage from './components/WelcomePage'; 
 import Header from './components/Header';
 import CharacterList from './components/CharacterList';
-import CharacterCard from './components/CharacterCard';
-import Page from './components/Pagination';
+// import Page from './components/Pagination';
 import styled from 'styled-components';
 
 const App = () => {

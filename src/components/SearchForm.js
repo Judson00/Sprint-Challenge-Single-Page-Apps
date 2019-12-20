@@ -1,50 +1,151 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
 
-const SearchForm = props => {
-  const { name } = props;
-  // searchTerm will save the data from the search input on every occurance of the change event.
-  const [searchTerm, setSearchTerm] = useState("");
-  // searchResults is used to set the search result.
-  const [searchResults, setSearchResults] = useState([]);
+// const SearchForm = () => {
+
+//   const [searchTerm, setSearchTerm] = useState("");
+//   const [searchResults, setSearchResults] = useState([]);
+
+//   useEffect(() => {
+
+//     axios
+//       .get(
+//         `https://rickandmortyapi.com/api/character/`
+//       )
+//       .then(response => {
+//         const characters = response.data.results.filter(
+//           character =>
+//             character.name
+//               .toLowerCase()
+//               .includes(searchTerm.toLowerCase())
+//         );
+//         setSearchResults(characters.name)
+//       });
+//   }, [searchResults]);
+//   const handleInputChange = event => {
+//     setSearchTerm(event.target.value);
+//   };
+
+//   return (
+//     <>
+//     <div className='search-form'>
+//       <form className='search'>
+//         <input 
+//           type='text'
+//           onChange={handleInputChange}
+//           value={searchResults}
+//           name='name'
+//           className='prompt search-name'
+//           placeholder='search'
+//         />
+//       </form>
+//     </div>
+//     <div className='character-list'>
+//       {/* <ul>
+//         {searchResults.map(character => (
+//           <li key={character}>{character}></li>
+//         ))}
+//       </ul> */}
+//     </div>
+//     </>
+//   )
+//   }
+
+//   export default SearchForm;
+
+// //     const results = name.filter(character =>
+// //       character.toLowerCase().includes(searchTerm.toLowerCase())
+// //     );
+
+// //     setSearchResults(results);
+// //   }, [searchTerm]);
+
+// //   const handleChange = event => {
+// //     setSearchTerm(event.target.value);
+// //   };
+
+// //   return (
+// //     <div className="App">
+// //       <form>
+// //         <label htmlFor="name">Search:</label>
+// //         <input
+// //           id="name"
+// //           type="text"
+// //           name="textfield"
+// //           placeholder="Search"
+// //           value={searchTerm}
+// //           onChange={handleChange}
+// //         />
+// //       </form>
+// //       <div className="character-list">
+// //         <ul>
+// //           {searchResults.map(character => (
+// //             <li key={character.name}>{character.name}</li>
+// //           ))}
+// //         </ul>
+// //       </div>
+// //     </div>
+// //   );
+// // }
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Cards from "./CharacterCard";
+
+export default function SearchForm() {
+  const [search, setSearch] = useState("");
+  const [results, setResults] = useState([]);
+
+  function handleChange(event) {
+    event.preventDefault();
+    setSearch(event.target.value);
+    console.log(event.target.value);
+  }
 
   useEffect(() => {
-    const results = name.filter(character =>
-      character.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
-  // The handleChange method takes the event object as the arguement and sets the current value of the form to the searchTerm state using setSearchTerm
-  const handleChange = event => {
-    // console.log(event.target.value)
-    setSearchTerm(event.target.value);
-  };
+    axios
+      .get("https://rickandmortyapi.com/api/character")
+      .then(response => {
+        console.log(response.data.results);
+        let characters = response.data.results.filter(character =>
+          character.name.toLowerCase().includes(search.toLowerCase())
+        );
+        setResults(characters);
+        console.log(results);
+      })
+      .catch(error => console.log(error));
+  }, [search]);
+
   return (
-    <div className="App">
+    <div>
+
       <form>
-        {/* We apply two-way data binding to the input field, which basically takes the value from the user and saves it into the state. */}
-        {/* Two-way binding just means that:
-        When properties in the model get updated, so does the UI.
-        When UI elements get updated, the changes get propagated back to the model. */}
-        <label htmlFor="name">Search:</label>
+        <label htmlFor="search">
+          Search
+          <br />
+        </label>
         <input
-          id="name"
+          className="searchBar"
+          name="search"
           type="text"
-          name="textfield"
-          placeholder="Search"
-          value={searchTerm}
+          id="search"
+          placeholder="enter character name"
+          value={search}
           onChange={handleChange}
+          autoComplete="off"
         />
+        <button type="submit">Submit</button>
       </form>
-      <div className="character-list">
-        <ul>
-          {searchResults.map(character => (
-            <li key={character.name}>{character.name}</li>
-          ))}
-        </ul>
+      <div>
+
+        {results.map(result => 
+        <div>
+          
+          <p>Name: {result.name}</p> 
+          
+          </div>
+        )}
       </div>
     </div>
   );
 }
-
-export default SearchForm;

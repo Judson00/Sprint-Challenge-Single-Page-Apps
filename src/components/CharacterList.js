@@ -8,7 +8,7 @@ import CharacterCard from './CharacterCard';
 export default function CharacterList() {
   // TODO: Add useState to track data from useEffect
   const [people, setPeople] = useState ([]);
-  const [url, setUrl] = useState ('https://rickandmortyapi.com/api/character/');
+  const [url] = useState ('https://rickandmortyapi.com/api/character/');
   const [nextUrl, setNextUrl] = useState ('');
   const [prevUrl, setPrevUrl] = useState ('');
 

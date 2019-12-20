@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card, CardHeader, CardBody,
-  CardTitle } from 'reactstrap';
+import { Card, CardHeader } from 'reactstrap';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`  
